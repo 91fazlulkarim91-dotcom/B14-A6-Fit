@@ -1,15 +1,33 @@
 import "./App.css";
+import { Routes, Route } from "react-router";
+
 import Banner from "./Components/Banner";
 import Navbar from "./Components/Navbar";
+import THELIBRARY from "./Components/THELIBRARY";
+import WorkoutDetails from "./Components/WorkoutDetails";
 
 function App() {
   return (
-    <>
-      <div className="bg-[#0C0D10]">
-        <Navbar />
-        <Banner />
-      </div>
-    </>
+    <div className="min-h-screen bg-[#0C0D10]">
+      <Navbar />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Banner />
+              <THELIBRARY />
+            </>
+          }
+        />
+
+        <Route
+          path="/workout/:id"
+          element={<WorkoutDetails />}
+        />
+      </Routes>
+    </div>
   );
 }
 

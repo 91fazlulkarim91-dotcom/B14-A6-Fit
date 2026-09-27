@@ -2,7 +2,7 @@ import banner from "../../assets/banner.png";
 
 const Banner = () => {
   return (
-    <div className="hero    ">
+    <div className="hero  bg-[#15171D]  ">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img alt="Tailwind CSS hero component" src={banner} />
         <div>
