@@ -1,4 +1,4 @@
-import React from "react";
+import logoImg from "../../assets/logo.png";
 
 const Navbar = () => {
   const menuItems = (
@@ -33,7 +33,10 @@ const Navbar = () => {
               />
             </svg>
           </label>
-          <button className="btn btn-ghost text-xl">FITLOG</button>
+          <div className="flex items-center ">
+            <img src={logoImg} alt="" />
+            <button className="btn btn-ghost text-xl">FITLOG</button>
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{menuItems}</ul>
