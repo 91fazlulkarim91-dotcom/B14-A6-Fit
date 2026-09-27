@@ -1,10 +1,10 @@
-import bannerImg from "../../assets/banner.png";
+import banner from "../../assets/banner.png";
 
 const Banner = () => {
   return (
     <div className="hero    ">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <img alt="Tailwind CSS hero component" src={bannerImg} />
+        <img alt="Tailwind CSS hero component" src={banner} />
         <div>
             <p className="text-xl font-bold text-[#C2F800]">WORKOUT LIBRARY</p>
           <h1 className="text-6xl  font-bold">
