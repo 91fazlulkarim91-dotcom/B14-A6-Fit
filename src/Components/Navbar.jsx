@@ -1,10 +1,11 @@
+import {Link} from "react-router";
 import logoImg from "../../assets/logo.png";
 
 const Navbar = () => {
   const menuItems = (
-    <ul className="">
-      <button>Workouts</button>
-      <button>My Plan</button>
+    <ul className="gap-3 flex flex-col max-lg:items-center lg:flex-row">
+      <Link to="/workouts">Workouts</Link>
+      <Link to="/plan">My Plan</Link>
     </ul>
   );
   return (
@@ -34,16 +35,22 @@ const Navbar = () => {
             </svg>
           </label>
           <div className="flex items-center ">
-            <img src={logoImg} alt="" />
-            <button className="btn btn-ghost text-xl">FITLOG</button>
+            <img src={logoImg} alt="FITLOG Logo" />
+            <Link to="/" className=" text-xl">
+              FITLOG
+            </Link>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{menuItems}</ul>
         </div>
         <div className="navbar-end">
-          <button className="btn btn-active">Plan</button>
-          <button className="btn btn-active btn-primary">Saved</button>
+          <Link to="/plan" className="btn btn-active">
+            Plan
+          </Link>
+          <Link to="/saved" className="btn ">
+            Saved
+          </Link>
         </div>
       </div>
 

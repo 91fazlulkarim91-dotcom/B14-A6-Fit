@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { usePlan } from "../context/PlanContext";
 
 const WorkoutDetails = () => {
   const { id } = useParams();
+
+  const { plan, addToPlan, addToSaved } = usePlan();
 
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,13 +39,13 @@ const WorkoutDetails = () => {
     );
   }
 
+  const isPlanFull = plan.length >= 5;
+  const isAlreadyInPlan = plan.some((item) => item.id === workout.id);
+
   return (
     <section className="min-h-screen bg-[#0C0D10] text-white px-4 py-10">
       <div className="max-w-6xl mx-auto">
-
-        {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
           {/* Left Image */}
           <div>
             <img
@@ -54,7 +57,6 @@ const WorkoutDetails = () => {
 
           {/* Right Content */}
           <div>
-
             {/* Title */}
             <h1 className="text-3xl md:text-4xl font-black uppercase leading-tight">
               {workout.name}
@@ -79,77 +81,59 @@ const WorkoutDetails = () => {
 
             {/* Workout Information */}
             <div className="mt-5 rounded-xl border border-[#272A32] bg-[#15171D] overflow-hidden">
-
               <div className="flex justify-between items-center px-4 py-3 border-b border-[#272A32]">
                 <span className="text-[10px] uppercase text-gray-400">
                   Equipment
                 </span>
-                <span className="text-xs">
-                  {workout.equipment}
-                </span>
+                <span className="text-xs">{workout.equipment}</span>
               </div>
 
               <div className="flex justify-between items-center px-4 py-3 border-b border-[#272A32]">
                 <span className="text-[10px] uppercase text-gray-400">
                   Difficulty
                 </span>
-                <span className="text-xs">
-                  {workout.difficulty}
-                </span>
+                <span className="text-xs">{workout.difficulty}</span>
               </div>
 
               <div className="flex justify-between items-center px-4 py-3 border-b border-[#272A32]">
                 <span className="text-[10px] uppercase text-gray-400">
                   Sets
                 </span>
-                <span className="text-xs">
-                  {workout.sets}
-                </span>
+                <span className="text-xs">{workout.sets}</span>
               </div>
 
               <div className="flex justify-between items-center px-4 py-3 border-b border-[#272A32]">
                 <span className="text-[10px] uppercase text-gray-400">
                   Reps
                 </span>
-                <span className="text-xs">
-                  {workout.reps}
-                </span>
+                <span className="text-xs">{workout.reps}</span>
               </div>
 
               <div className="flex justify-between items-center px-4 py-3 border-b border-[#272A32]">
                 <span className="text-[10px] uppercase text-gray-400">
                   Duration
                 </span>
-                <span className="text-xs">
-                  {workout.duration}
-                </span>
+                <span className="text-xs">{workout.duration}</span>
               </div>
 
               <div className="flex justify-between items-center px-4 py-3 border-b border-[#272A32]">
                 <span className="text-[10px] uppercase text-gray-400">
                   Calories
                 </span>
-                <span className="text-xs">
-                  {workout.calories}
-                </span>
+                <span className="text-xs">{workout.caloriesBurned}</span>
               </div>
 
               <div className="flex justify-between items-center px-4 py-3">
                 <span className="text-[10px] uppercase text-gray-400">
                   Rating
                 </span>
-                <span className="text-xs">
-                  {workout.rating}
-                </span>
+                <span className="text-xs">⭐ {workout.rating}</span>
               </div>
-
             </div>
 
             {/* Instructions */}
             <div className="mt-6">
-              <h2 className="text-sm font-bold uppercase mb-3">
-                Instructions
-              </h2>
+              <h2 className="text-sm font-bold uppercase mb-3">Instructions</h2>
 
               <ol className="space-y-3">
                 {workout.instructions?.map((instruction, index) => (
@@ -157,9 +141,7 @@ const WorkoutDetails = () => {
                     key={index}
                     className="text-xs text-gray-400 leading-5 flex gap-3"
                   >
-                    <span className="text-gray-500">
-                      {index + 1}.
-                    </span>
+                    <span className="text-gray-500">{index + 1}.</span>
 
                     <span>{instruction}</span>
                   </li>
@@ -169,19 +151,33 @@ const WorkoutDetails = () => {
 
             {/* Buttons */}
             <div className="flex flex-wrap gap-3 mt-7">
-
-              <button className="bg-[#C2F800] text-black px-5 py-3 rounded-lg text-xs font-bold hover:bg-[#d5ff38] transition">
-                ➕ Add to today's plan
+              {/* Add To Plan */}
+              <button
+                onClick={() => addToPlan(workout)}
+                disabled={isPlanFull || isAlreadyInPlan}
+                className={`px-5 py-3 rounded-lg text-xs font-bold transition ${
+                  isPlanFull || isAlreadyInPlan
+                    ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                    : "bg-[#C2F800] text-black hover:bg-[#d5ff38]"
+                }`}
+              >
+                {isAlreadyInPlan
+                  ? "✓ Already in plan"
+                  : isPlanFull
+                    ? "Plan Full"
+                    : "➕ Add to today's plan"}
               </button>
 
-              <button className="border border-[#33363F] px-5 py-3 rounded-lg text-xs font-medium text-white hover:bg-[#181A20] transition">
+              {/* Save */}
+              <button
+                onClick={() => addToSaved(workout)}
+                className="border border-[#33363F] px-5 py-3 rounded-lg text-xs font-medium text-white hover:bg-[#181A20] transition"
+              >
                 ♡ Save for later
               </button>
-
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import Banner from "./Components/Banner";
 import Navbar from "./Components/Navbar";
 import THELIBRARY from "./Components/THELIBRARY";
 import WorkoutDetails from "./Components/WorkoutDetails";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           element={<WorkoutDetails />}
         />
       </Routes>
+      <Footer />
     </div>
   );
 }
