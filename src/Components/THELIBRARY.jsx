@@ -35,12 +35,8 @@ const THELIBRARY = () => {
             onClick={() => navigate(`/workout/${workout.id}`)}
             className="cursor-pointer bg-[#15171D] border border-[#22242B] rounded-lg overflow-hidden hover:border-[#C2F800] transition duration-300"
           >
-            <div className="h-40 overflow-hidden">
-              <img
-                src={workout.image}
-                alt={workout.name}
-                className="w-full h-full object-cover"
-              />
+            <div>
+              <img src={workout.image} alt={workout.name} />
             </div>
 
             <div className="p-3">

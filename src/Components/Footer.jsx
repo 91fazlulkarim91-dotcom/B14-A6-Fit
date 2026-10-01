@@ -8,7 +8,7 @@ const Footer = () => {
         <p className="text-lg font-bold">FITLOG</p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-        <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
+        <p>© 2026 FitLog — Workout Library. Train hard, log honest.</p>
       </nav>
     </footer>
   );

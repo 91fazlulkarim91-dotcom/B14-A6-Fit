@@ -1,63 +1,49 @@
-import {Link} from "react-router";
+import { Link } from "react-router";
 import logoImg from "../../assets/logo.png";
+import { usePlan } from "../context/PlanContext";
 
 const Navbar = () => {
+  const { plan, saved } = usePlan();
+
   const menuItems = (
-    <ul className="gap-3 flex flex-col max-lg:items-center lg:flex-row">
-      <Link to="/workouts">Workouts</Link>
-      <Link to="/plan">My Plan</Link>
+    <ul className="flex flex-col gap-3 max-lg:items-center lg:flex-row">
+      <Link to="/" className="text-sm font-medium text-gray-300 transition hover:text-white">
+        Workouts
+      </Link>
+      <Link to="/plan" className="text-sm font-medium text-gray-300 transition hover:text-white">
+        My Plan
+      </Link>
     </ul>
   );
-  return (
-    <div className="max-lg:collapse  lg:mb-48 shadow-sm w-full rounded-md">
-      <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
-      <label
-        htmlFor="navbar-1-toggle"
-        className="fixed inset-0 hidden max-lg:peer-checked:block"
-      ></label>
-      <div className="collapse-title navbar">
-        <div className="navbar-start">
-          <label htmlFor="navbar-1-toggle" className="btn btn-ghost lg:hidden">
-            <svg
-              aria-label="Menu"
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </label>
-          <div className="flex items-center ">
-            <img src={logoImg} alt="FITLOG Logo" />
-            <Link to="/" className=" text-xl">
-              FITLOG
-            </Link>
-          </div>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{menuItems}</ul>
-        </div>
-        <div className="navbar-end">
-          <Link to="/plan" className="btn btn-active">
-            Plan
-          </Link>
-          <Link to="/saved" className="btn ">
-            Saved
-          </Link>
-        </div>
-      </div>
 
-      <div className="collapse-content lg:hidden z-1">
-        <ul className="menu">{menuItems}</ul>
+  return (
+    <header className="mx-auto max-w-6xl px-4 pt-4">
+      <div className="flex items-center justify-between rounded-xl border border-[#1F232B] bg-[#0D1015] px-4 py-3 shadow-sm shadow-black/20">
+        <div className="flex items-center gap-3">
+          <img src={logoImg} alt="FITLOG Logo" className="h-6 w-6" />
+          <Link to="/" className="text-xl font-black uppercase tracking-tight text-white">
+            FITLOG
+          </Link>
+        </div>
+
+        <nav className="hidden items-center gap-8 lg:flex">{menuItems}</nav>
+
+        <div className="flex items-center gap-3">
+          <Link
+            to="/plan"
+            className="rounded-lg bg-[#C2F800] px-4 py-2 text-sm font-bold text-black"
+          >
+            Plan <span className="ml-1 text-xs opacity-80">{plan.length}</span>
+          </Link>
+          <Link
+            to="/saved"
+            className="rounded-lg border border-[#2A2E38] px-4 py-2 text-sm font-medium text-white"
+          >
+            Saved <span className="ml-1 text-xs opacity-80">{saved.length}</span>
+          </Link>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

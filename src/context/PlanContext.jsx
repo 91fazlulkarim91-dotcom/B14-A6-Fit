@@ -5,16 +5,23 @@ const PlanContext = createContext(null);
 export const PlanProvider = ({ children }) => {
   const [plan, setPlan] = useState([]);
   const [saved, setSaved] = useState([]);
+  const [toast, setToast] = useState(null);
+
+  const showToast = (message, type = "success") => {
+    setToast({ message, type });
+    window.clearTimeout(showToast.timeoutId);
+    showToast.timeoutId = window.setTimeout(() => setToast(null), 2500);
+  };
 
   // Add workout to today's plan
   const addToPlan = (workout) => {
     if (plan.length >= 5) {
-      alert("Today's plan is full! Maximum 5 workouts.");
+      showToast("Today's plan is full! Maximum 5 workouts.", "error");
       return;
     }
 
     if (plan.some((item) => item.id === workout.id)) {
-      alert("This workout is already in your plan!");
+      showToast("This workout is already in your plan!", "error");
       return;
     }
 
@@ -26,19 +33,19 @@ export const PlanProvider = ({ children }) => {
       },
     ]);
 
-    alert(`${workout.name} added to today's plan!`);
+    showToast(`${workout.name} added to today's plan!`, "success");
   };
 
   // Add workout to saved
   const addToSaved = (workout) => {
     if (saved.some((item) => item.id === workout.id)) {
-      alert("This workout is already saved!");
+      showToast("This workout is already saved!", "error");
       return;
     }
 
     setSaved((prev) => [...prev, workout]);
 
-    alert(`${workout.name} saved for later!`);
+    showToast(`${workout.name} saved for later!`, "success");
   };
 
   // Remove from plan
@@ -70,6 +77,8 @@ export const PlanProvider = ({ children }) => {
   const value = {
     plan,
     saved,
+    toast,
+    showToast,
     addToPlan,
     addToSaved,
     removeFromPlan,
